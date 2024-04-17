@@ -5,5 +5,9 @@
   "repository": "https://github.com/nest-mods/apm-bull",
   "main": "index.js",
   "author": "Diluka",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
 }
