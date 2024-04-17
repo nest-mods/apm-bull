@@ -1,0 +1,9 @@
+{
+  "name": "@nest-mods/apm-bull",
+  "version": "0.0.0",
+  "description": "elastic apm for bull",
+  "repository": "https://github.com/nest-mods/apm-bull",
+  "main": "index.js",
+  "author": "Diluka",
+  "license": "MIT"
+}
