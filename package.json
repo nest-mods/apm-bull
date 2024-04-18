@@ -9,5 +9,9 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
+  },
+  "devDependencies": {
+    "bull": "^4.12.2",
+    "elastic-apm-node": "^4.5.2"
   }
 }

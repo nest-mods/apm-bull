@@ -15,6 +15,7 @@ shimmer.wrap(Queue.prototype, 'process', function (original) {
                 args[i] = async function (job) {
                     const transName = `${job.queue.name}[${job.name}]`;
                     const trans = apm.startTransaction(transName, 'queue');
+                    apm.setCustomContext(job.toJSON());
                     try {
                         return await _handler(job);
                     } catch (e) {
