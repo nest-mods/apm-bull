@@ -12,6 +12,7 @@ shimmer.wrap(Queue.prototype, 'setHandler', function (original) {
                 const trans = apm.startTransaction(transName, 'queue');
                 apm.setCustomContext(job.toJSON());
                 try {
+                    trans.outcome = 'success';
                     return await _handler(job);
                 } catch (e) {
                     trans.result = e.message;
