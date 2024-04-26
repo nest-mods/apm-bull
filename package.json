@@ -1,7 +1,7 @@
 {
   "name": "@nest-mods/apm-bull",
   "version": "0.0.4",
-  "description": "elastic apm for bull",
+  "description": "elastic apm for bull and bullmq",
   "repository": "https://github.com/nest-mods/apm-bull",
   "main": "index.js",
   "author": "Diluka",
@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "bull": "^4.12.2",
+    "bullmq": "^5.7.5",
     "elastic-apm-node": "^4.5.2"
   }
 }
