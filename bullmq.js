@@ -11,7 +11,7 @@ shimmer.wrap(Worker.prototype, 'callProcessJob', function (original) {
         try {
             trans.outcome = 'success';
             const result = original.call(this, job, token);
-            if (result?.prototype && typeof result.prototype.catch === 'function' && typeof result.prototype.finally === 'function') {
+            if (result && typeof result.catch === 'function' && typeof result.finally === 'function') {
                 // is async handler
                 result.catch((e) => {
                     trans.result = e.message;
