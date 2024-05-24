@@ -21,15 +21,16 @@ shimmer.wrap(Worker.prototype, 'callProcessJob', function (original) {
                 }).finally(() => {
                     trans.end();
                 });
+            } else {
+                trans.end();
             }
             return result;
         } catch (e) {
             trans.result = e.message;
             trans.outcome = 'failure';
             apm.captureError(e);
-            throw e;
-        } finally {
             trans.end();
+            throw e;
         }
     };
 });
