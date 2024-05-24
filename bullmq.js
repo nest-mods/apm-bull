@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const apm = require('elastic-apm-node/start');
 const shimmer = require('elastic-apm-node/lib/instrumentation/shimmer');
-const { Worker } = require('bullmq');
+const {Worker} = require('bullmq');
 
 shimmer.wrap(Worker.prototype, 'callProcessJob', function (original) {
     return function callProcessJob(job, token) {
@@ -10,7 +10,19 @@ shimmer.wrap(Worker.prototype, 'callProcessJob', function (original) {
         apm.setCustomContext(job.toJSON());
         try {
             trans.outcome = 'success';
-            return original.call(this, job, token);
+            const result = original.call(this, job, token);
+            if (result?.prototype && typeof result.prototype.catch === 'function' && typeof result.prototype.finally === 'function') {
+                // is async handler
+                result.catch((e) => {
+                    trans.result = e.message;
+                    trans.outcome = 'failure';
+                    apm.captureError(e);
+                    throw e;
+                }).finally(() => {
+                    trans.end();
+                });
+            }
+            return result;
         } catch (e) {
             trans.result = e.message;
             trans.outcome = 'failure';
